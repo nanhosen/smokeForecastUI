@@ -1,0 +1,105 @@
+/*.myTab{
+		a { color: white }
+	} 
+
+	.ol-popup-closer:after {
+  content: "✖";
+}*/
+/*.tabStyle{
+	a {
+	  color: 'hotpink';
+	}
+	a.register:link{
+	    color:#FFFFFF;
+	}
+}*/
+.tabStyle > a, .tabStyle > a:hover, .tabStyle > a:visited {
+color:'white';
+text-decoration:none;
+}
+
+.tabStyle > a {
+    color: #eaebef;
+    background-color:#283137;
+}
+
+.tabStyle > a:hover {
+    color: white;
+    background-color:#283137;
+}
+
+.bigModal{
+    display: block; 
+    width: 1000px; 
+    padding-left: 0px;
+    max-width: 1800px;
+}
+
+.bigModal > & {
+	& .modal-content >{
+	max-width: 3000px;
+}
+
+	}
+/*	html body div.fade.bigModal.modal.show div.modal-dialog.bigModal div.modal-content
+
+	.some-class.another-class { }*/
+
+	.bigModal1 {
+  &.modal-content {
+  	max-width: 3000px;
+  }
+}
+
+html, body {
+width: 100%;
+height: 100%;
+}
+
+.modelImage{
+	max-height:700px;
+	max-width:500px;
+}
+
+.absBotRight{
+	position: absolute;
+	z-index: 4;
+	right: 20px;
+	top: 227px;
+}
+
+.visBar{
+	background-color: 'white';
+	font-size: 15px;
+}
+
+.lifr{
+	color:#8f3f97;
+}
+
+.ifr{
+	color:#ff7e00;
+}
+
+.mvfr{
+	color:#ffff00;
+}
+
+.vfr{
+	color:#00cc00;
+}
+
+.outline{
+	text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000; 
+}
+
+.visLegend{
+	position: absolute;
+	z-index: 4;
+	right: 20px;
+	top: 275px;
+}
