@@ -1,8 +1,11 @@
-import React, {  useEffect, useContext, useState } from 'react';
+import React, {  useEffect, useContext, useState, lazy, Suspense } from 'react';
 import { SmokeContext } from '../contexts/SmokeContext'
 import {Container, Card, CardGroup} from 'react-bootstrap';
-import CarouselModal from './CarouselModal.js'
-import ImageCard from './ImageCard.js'
+// import CarouselModal from './CarouselModal.js'
+// import ImageCard from './ImageCard.js'
+const ImageCard = React.lazy(() => import('./ImageCard'))
+// const CarouselModal = React.lazy(() => import('./CarouselModal'))
+
 
 function NearSurface() {
   const [ infoText, setInfoText ] = useState()
@@ -37,7 +40,13 @@ function NearSurface() {
 		}
 		// console.log('cardData', cardData)
 		if(infoText && infoText[`date${currDay}`]){
-			return <ImageCard props={ cardData } />
+			return(
+				<>
+					<Suspense fallback = {<div>Loading...</div>}>
+			 			<ImageCard props={ cardData } />
+					</Suspense>
+				</>
+			 )
 		}
   	// const cardData = { 
 	  //   imageLink: `https://gacc.nifc.gov/gbcc/predictive/smokeForecast/testDisplay/day${currDay}Model.png`,
@@ -52,7 +61,7 @@ function NearSurface() {
   return (
   	<Container fluid style={{paddingTop:'10px'}}>
 	  	<Card className = "card text-left" >
-			  <Card.Header as="h4" style={{backgroundColor:'white'}}>HRRR Near Surface Smoke Forecast - Experimental</Card.Header>
+			  <Card.Header as="h4" style={{backgroundColor:'white'}}>HRRR Near Surface Forecast - Experimental</Card.Header>
 			  <Card.Body>
 			    <Card.Text>
 		        <small>The HRRR-Smoke model is based on the Weather Research and Forecasting model coupled to Chemistry (WRF-Chem, <a href="http://ruc.noaa.gov/wrf/WG11/">http://ruc.noaa.gov/wrf/WG11/</a>). The dynamics and physics packages and settings for the meteorology of HRRR-Smoke are based on the experimental version of the HRRR model, which is run in real-time (<a href="http://rapidrefresh.noaa.gov/hrrr/">http://rapidrefresh.noaa.gov/hrrr/</a>) at NOAA/ESRL Global Systems Division (GSD). HRRR-Smoke has been developed to simulate the emissions and transport of smoke from wildfires in real time in high spatial resolution. </small>

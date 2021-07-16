@@ -1,9 +1,10 @@
-import React, {  useContext, useRef, useEffect, useState, Suspense } from 'react';
+import React, {  useContext, useRef, useEffect, useState, Suspense, lazy } from 'react';
 import { SmokeContext } from '../contexts/SmokeContext'
 import NearSurface from './NearSurface.js'
 import UpperLevel from './UpperLevel.js'
 import AQMap from './AQMap.js' 
 import VisibilityMap from './VisibilityMap.js' 
+// import DynamicMap from './DynamicMap.js' 
 import ImageCard from './ImageCard.js' 
 import LoadingComponent from './LoadingComponent.js' 
 
@@ -15,6 +16,8 @@ function ContentArea() {
   const heightRef = useRef()
   const [mapHeight, setMapHeight] = useState(400)
   const [ loaded, setLoaded ] = useState(false)
+  const [ loadedAQI, setLoadedAQI ] = useState(false)
+  const [ loadedVis, setLoadedVis ] = useState(false)
   const {jumboHeight, tabHeight, windowHeight} = context
 
   useEffect(() => {
@@ -27,9 +30,15 @@ function ContentArea() {
     }
   }, windowHeight)
   useEffect(() => {
-    const loadState = context.aqiData && context.smokeData ? true : false
-    setLoaded(loadState)
-  },[context.aqiData, context.smokeData])
+    const loadState = context.aqiData ? true : false
+    setLoadedAQI(loadState)
+  },[context.aqiData])
+
+  useEffect(() => {
+    const loadState = context.smokeData ? true : false
+    setLoadedVis(loadState)
+  },[context.smokeData])
+
   // console.log(window.innerHeight, 'asdf')
   // if(heightRef && heightRef.current){
 
@@ -50,8 +59,10 @@ function ContentArea() {
     nrSfc: <NearSurface />,
     // upperLvl: <ImageCard props={ cardData } />,
     upperLvl: <UpperLevel />,
-    aqMap: MapArea(loaded, windowHeight, 'aq'),
-    visibilityMap: MapArea(loaded, windowHeight, 'vis')
+    aqMap: MapArea(loadedAQI, windowHeight, 'aq'),
+    visibilityMap: MapArea(loadedVis, windowHeight, 'vis'),
+    // visibilityMap: MapArea(loadedVis, windowHeight, 'dynamic'),
+    // dynamicMap: MapArea(loadedVis, windowHeight, 'dynamic')
   }
   const displayComponent = componentObj[context.activeContent]
   return (
@@ -67,14 +78,17 @@ function ContentArea() {
 export default ContentArea
 
 function MapArea(loadedState, windowHeight, type){
-  if(loadedState == true && type == 'aq'){
+  // if(loadedState == true && type == 'aq'){
+  if(type == 'aq'){
     return <div><AQMap  height={windowHeight} className="h-100"/></div>
   }
-  else if(loadedState == true && type == 'vis'){
+  // else if(loadedState == true && type == 'vis'){
+  else if(type == 'vis'){
     return <div><VisibilityMap  height={windowHeight} className="h-100"/></div>
   }
   else{
     return <LoadingComponent />
+    {/*return <div>whatev</div>*/}
   }
 
 }

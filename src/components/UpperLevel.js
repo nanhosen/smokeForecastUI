@@ -1,9 +1,9 @@
-import React, {  useEffect, useContext, useState } from 'react';
+import React, {  useEffect, useContext, useState, lazy, Suspense } from 'react';
 import { Container, Card, CardGroup } from 'react-bootstrap';
 import { SmokeContext } from '../contexts/SmokeContext'
-import CarouselModal from './CarouselModal.js'
-import ImageCard from './ImageCard.js'
-
+// import CarouselModal from './CarouselModal.js'
+// import ImageCard from './ImageCard.js'
+const ImageCard = React.lazy(() => import('./ImageCard'))
 
 
 function UpperLevel() {
@@ -19,8 +19,8 @@ function UpperLevel() {
     }
   },[context.updateTime])
   // console.log('sfc infoText', infoText)
-  console.log('context', context)
-  console.log('updatedTime', typeof updatedTime)
+  // console.log('context', context)
+  // console.log('updatedTime', typeof updatedTime)
   const levelDays = [1,2,3]
   // const levObj = {1000:[],6000:[]}
   const levObj = {6000:[]}

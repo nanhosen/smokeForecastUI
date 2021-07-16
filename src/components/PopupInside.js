@@ -76,7 +76,7 @@ export default function PopupInside(props) {
   }
 
   const insideComponent = Object.keys(returnObj).map(key => {
-    console.log('props', props, props['all'][key])
+    // console.log('props', props, props['all'][key])
     return renderInfo(returnObj[key], props['all'][key])
   })
 
